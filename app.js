@@ -1,6 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const dotEnv = require('dotenv')
+const cors = require('cors')
 
 const cryptoDataRouter = require('./src/api/crypto-data/router')
 const transactionLogRouter = require('./src/api/transaction-log/router')
@@ -10,6 +11,7 @@ dotEnv.config()
 
 const app = express()
 
+app.use(cors())
 app.use(bodyParser.json())
 
 app.use('/api/crypto-data', cryptoDataRouter)
