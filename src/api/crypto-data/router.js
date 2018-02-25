@@ -5,11 +5,12 @@ const poloniexController = require('../../controllers/poloniex')
 
 router.route('/')
   .get((req, res) => {
-    poloniexController.getTickers('USDT')
+    poloniexController.getCryptoData('USDT')
       .then((tickers) => {
         res.json(tickers)
       })
       .catch((reason) => {
+        console.error(reason)
         res.status(500).send(reason)
       })
   })
