@@ -8,8 +8,7 @@
     "npm": "5.5.1"
   },
   "scripts": {
-    "dev": "nodemon app.js",
-    "start": "node app.js",
+    "start": "nodemon app.js",
     "test": "mocha"
   },
   "repository": {
@@ -30,6 +29,7 @@
     "cors": "^2.8.4",
     "dotenv": "^5.0.0",
     "express": "^4.16.2",
+    "lodash": "^4.17.5",
     "poloniex-api-node": "^1.8.1"
   },
   "devDependencies": {
