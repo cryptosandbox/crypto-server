@@ -5,7 +5,7 @@ const poloniexController = require('../../controllers/poloniex')
 
 router.route('/')
   .get((req, res) => {
-    poloniexController.getCryptoData('USDT')
+    poloniexController.getCombined('USDT')
       .then((tickers) => {
         res.json(tickers)
       })
