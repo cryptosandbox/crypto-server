@@ -21,7 +21,9 @@ async function getTickers(baseCurrency) {
           let coin = key.slice(baseCurrency.length + 1);
           filteredTickers.push({
             coin: coin,
-            last: tickers[key].last
+            last: tickers[key].last,
+            volume: tickers[key].baseVolume,
+            change: tickers[key].percentChange
           })
         })
         resolve(filteredTickers)
