@@ -1,0 +1,33 @@
+{
+  "name": "owl",
+  "version": "0.0.1",
+  "description": "owl",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon app.js",
+    "start": "node app.js",
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DrCalx/owl.git"
+  },
+  "keywords": [
+    "owl"
+  ],
+  "author": "Matthew Duguay",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DrCalx/owl/issues"
+  },
+  "homepage": "https://github.com/DrCalx/owl#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "dotenv": "^5.0.0",
+    "express": "^4.16.2",
+    "poloniex-api-node": "^1.8.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.15.1"
+  }
+}
