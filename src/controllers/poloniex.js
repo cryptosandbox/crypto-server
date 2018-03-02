@@ -50,4 +50,4 @@ async function getCryptoData(currencyPrefix) {
   return tickers
 }
 
-module.exports = { getCombined }
+module.exports = { getCombined, getCurrencies }
