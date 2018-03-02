@@ -18,7 +18,7 @@ router.route('/currencies')
     handleController(poloniexController.getCurrencies(), res)
   })
 
-router.route('/crypto-data')
+router.route('/crypto')
   .get((req, res) => {
     handleController(poloniexController.getCombined('USDT'))
   })
@@ -27,6 +27,7 @@ router.route('/crypto-data')
 function handleController(controllerPromise, res) {
   controllerPromise
     .then(data => {
+      console.log(data)
       res.send(data)
     })
     .catch(reason => {
