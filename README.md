@@ -13,7 +13,7 @@ Install the following items:
 
 To get set up, run the following commands:
 ```
-git clone git@github.com:DrCalx/cryptex-server.git
+git clone git@github.com:DrCalx/owl.git
 npm install
 cp .env.template .env
 npm test
