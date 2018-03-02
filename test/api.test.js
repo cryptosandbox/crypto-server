@@ -9,13 +9,15 @@ const should = chai.should()
 chai.use(chaiHttp)
 
 describe('API', () => {
-  describe('Get crypto data', () => {
-    it('returns an array of data from poloniex', () => {
+  describe('Get crypto', () => {
+    it('returns an array of data from poloniex', done => {
       chai.request(app)
-        .get('/api/crypto-data')
+        .get('/api/crypto')
         .end((err, res) => {
           res.should.have.status(200)
           res.body.should.be.a('array')
+          res.body[0].coin.should.equal('BTC')
+          done()
         })
     })
   })
