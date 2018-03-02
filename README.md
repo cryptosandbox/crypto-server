@@ -4,9 +4,10 @@ The cryptocurrency data service. Counterpart to [birdie](https://github.com/DrCa
 
 ## Prerequisites
 
-Install [Node.js](https://nodejs.org/)
-
-Install [Git](https://git-scm.com/downloads)
+Install the following items:
+  - [Node.js](https://nodejs.org/)
+  - [Git](https://git-scm.com/downloads)
+  - [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)
 
 ## Setup
 
@@ -19,17 +20,24 @@ npm test
 npm start
 ```
 
-The app will run on http://localhost:8080/ by deafult.
+Make a request for data by visiting http://localhost:8080/crypto
 
 ## Deploying to prod
 
-First, install the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)
 
-Then, clone the heroku repository and push to deploy:
+
+Clone the heroku repository:
 ```
 git remote add heroku https://git.heroku.com/owl-server.git
+```
+
+Then, to push to prod:
+```
+npm test
+npm version patch
+git push master
 git push heroku master
 heroku logs
 ```
 
-Visit the site at https://owl-server.herokuapp.com/
+Visit the site at https://owl-server.herokuapp.com
