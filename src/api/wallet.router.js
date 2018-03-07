@@ -7,8 +7,7 @@ const router = express.Router()
 
 router.route('/')
   .get((req, res) => {
-    // handleController(controller.readAll(), res)
-    handleControllerAsync(controller.readAll(), res)
+    handleController(controller.readAll(req.query.owner), res)
   })
   .post((req, res) => {
     handleController(controller.create(req.body), res)
@@ -28,13 +27,7 @@ router.route('/:id')
     handleController(controller.delete(req.params.id), res)
   })
 
-function handleController(controllerPromise, res) {
-  controllerPromise
-    .then(data => res.json(data))
-    .catch(reason => res.status(500).send(reason))
-}
-
-async function handleControllerAsync(controllerPromise, res) {
+async function handleController(controllerPromise, res) {
   try { res.json(await controllerPromise) }
   catch (reason) { res.status(500).send(reason) }
 }
