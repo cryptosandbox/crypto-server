@@ -60,7 +60,7 @@ describe('Wallets', () => {
   })
 
   describe('/GET wallet by name', () => {
-    it('returns the correct wallet', async (done) => {
+    it('returns the correct wallet', async () => {
       let wallet = {
         owner: 'mduguay',
         balance: 0
@@ -74,13 +74,12 @@ describe('Wallets', () => {
       await walletController.create(wallet)
       await walletController.create(wallet2)
 
-      chai.request(app)
+      let c = chai.request(app)
         .get('/api/wallets?owner=mduguay')
         .end((err, res) => {
           res.should.have.status(200)
           res.body.owner.should.equal('mduguay')
           res.body.balance.should.equal(0)
-          done();
         })
     })
   })
