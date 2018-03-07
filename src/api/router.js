@@ -1,12 +1,13 @@
 const express = require('express')
 const router = express.Router()
 
-const poloniexController = require('../controllers/poloniex')
+const walletRouter = require('./wallet.router')
+const poloniexController = require('../controllers/crypto/poloniex.controller')
+const walletController = require('../controllers/wallet/wallet.controller')
 
-router.route('/wallet')
-  .get((req, res) => {
-    res.send('Wallet')
-  })
+const app = express()
+
+app.use('/api/wallets', walletRouter)
 
 router.route('/transaction-log')
   .get((req, res) => {
