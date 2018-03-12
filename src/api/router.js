@@ -31,16 +31,12 @@ router.route('/0x/salt')
     handleController(zeroExController.getSalt())
   })
 
-
-function handleController(controllerPromise, res) {
-  controllerPromise
-    .then(data => {
-      res.send(data)
-    })
-    .catch(reason => {
-      console.error(reason)
-      res.status(500).send(reason)
-    })
+async function handleController(controllerPromise, res) {
+  try { res.send(await controllerPromise) }
+  catch (err) {
+    console.error(err)
+    res.status(500).send(err)
+  }
 }
 
 module.exports = router
