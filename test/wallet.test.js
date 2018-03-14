@@ -62,12 +62,11 @@ describe('Wallets', () => {
     it('returns the correct wallet', async () => {
       let wallet = {
         owner: 'mduguay',
-        balance: 0
+        holdings: [{ coin: 'BTC', balance: 64}]
       }
 
       let wallet2 = {
         owner: 'tnorling',
-        balance: 5
       }
 
       await walletController.create(wallet)
@@ -78,7 +77,7 @@ describe('Wallets', () => {
         .end((err, res) => {
           res.should.have.status(200)
           res.body.owner.should.equal('mduguay')
-          res.body.balance.should.equal(0)
+          res.body.holdings[0].balance.should.equal(64)
         })
     })
   })
@@ -87,7 +86,7 @@ describe('Wallets', () => {
     it('adds a new wallet', done => {
       let wallet = {
         owner: 'John Doe',
-        balance: 'Balance'
+        holdings: [{ coin: 'BTC', balance: 64}]
       }
       chai.request(app)
         .post('/api/wallets')
@@ -97,7 +96,7 @@ describe('Wallets', () => {
           res.body.should.be.a('object')
           res.body.should.have.property('_id')
           res.body.owner.should.equal(wallet.owner)
-          res.body.balance.should.equal(wallet.balance)
+          res.body.holdings[0].balance.should.equal(wallet.holdings[0].balance)
           done()
         })
     })
@@ -106,7 +105,7 @@ describe('Wallets', () => {
       let wallet = {
         _id: '',
         owner: 'Mark Smith',
-        balance: 'Balance'
+        holdings: [{ coin: 'BTC', balance: 64}]
       }
       chai.request(app)
       .post('/api/wallets')
@@ -116,7 +115,7 @@ describe('Wallets', () => {
         res.body.should.be.a('object')
         res.body.should.have.property('_id')
         res.body.owner.should.equal(wallet.owner)
-        res.body.balance.should.equal(wallet.balance)
+        res.body.holdings[0].balance.should.equal(wallet.holdings[0].balance)
         done()
       })
     })
@@ -177,12 +176,12 @@ describe('Wallets', () => {
   describe('/PUT an update', () => {
     it('modifies the selected wallet', done => {
       let oldWallet = new Wallet({
-        balance: 'OldBalance'
+        holdings: [{ name: 'BTC', balance:0 }]
       })
       oldWallet.save((err, wallet) => {
         let updatedWallet = new Wallet({
           _id: wallet._id,
-          balance: 'NewBalance'
+          holdings: [{ name: 'BTC', balance: 64}]
         })
         chai.request(app)
           .put('/api/wallets/' + updatedWallet._id)
@@ -191,8 +190,8 @@ describe('Wallets', () => {
             res.should.have.status(200)
             res.body.should.be.a('object')            
             res.body.should.have.property('_id').equals(wallet._id.toString())
-            res.body.balance.should.equal('NewBalance')
-            res.body.balance.should.not.equal(wallet.balance)
+            res.body.holdings[0].balance.should.equal(64)
+            res.body.holdings[0].balance.should.not.equal(wallet.holdings[0].balance)
             done()
           })
       })
