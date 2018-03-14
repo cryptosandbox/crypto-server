@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
-const Transaction = require('./transaction.model')
 const ObjectId = require('mongoose').Types.ObjectId
+const Transaction = require('./transaction.model')
 
 mongoose.Promise = require('bluebird')
 

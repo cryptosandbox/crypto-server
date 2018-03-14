@@ -1,9 +1,7 @@
 const express = require('express')
-const controller = require('../controllers/wallet/wallet.controller')
-
-controller.connect()
-
 const router = express.Router()
+
+const controller = require('./wallet.controller')
 
 router.route('/')
   .get((req, res) => {

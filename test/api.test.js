@@ -24,7 +24,7 @@ describe('API', () => {
   describe('Get currencies', () => {
     it('returns currency data from poloniex', done => {
       chai.request(app)
-        .get('/api/currencies')
+        .get('/api/crypto/currencies')
         .end((err, res) => {
           res.should.have.status(200)
           res.body.should.be.a('object')

@@ -6,8 +6,8 @@ let mockgoose = new Mockgoose(mongoose)
 
 let app = require('../app')
 let Promise = require('bluebird');
-let walletController = require('../src/controllers/wallet/wallet.controller')
-let Wallet = require('../src/controllers/wallet/wallet.model')
+let walletController = require('../src/api/wallet/wallet.controller')
+let Wallet = require('../src/api/wallet/wallet.model')
 
 let chai = require('chai')
 let chaiHttp = require('chai-http')
@@ -16,7 +16,6 @@ let should = chai.should()
 chai.use(chaiHttp)
 
 before( done => {
-  walletController.connect()
   done()
 })
 
