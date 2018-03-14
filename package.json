@@ -1,6 +1,6 @@
 {
   "name": "owl",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "owl",
   "main": "app.js",
   "engines": {
