@@ -2,21 +2,20 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const dotEnv = require('dotenv')
 const cors = require('cors')
+const mongoController = require('./src/controllers/mongodb/mongodb.controller')
 
 dotEnv.config()
 
 const apiRouter = require('./src/api/router')
-const walletRouter = require('./src/api/wallet.router')
 
 const app = express()
 
 app.use(cors())
 app.use(bodyParser.json())
 
-app.use('/api', apiRouter)
-app.use('/api/wallets', walletRouter)
+apiRouter.setRoutes(app)
 
-started = false;
+mongoController.connect()
 
 app.listen(process.env.PORT || 8080, () => {
   console.log(`running on ${process.env.HOST}:${process.env.PORT}`)

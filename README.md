@@ -17,7 +17,6 @@ To get set up, run the following commands:
 git clone git@github.com:DrCalx/owl.git
 npm install
 cp .env.template .env
-npm test
 npm start
 ```
 

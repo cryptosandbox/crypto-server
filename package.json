@@ -9,6 +9,7 @@
   },
   "scripts": {
     "start": "nodemon app.js",
+    "debug": "node --inspect-brk app.js",
     "test": "mocha"
   },
   "repository": {

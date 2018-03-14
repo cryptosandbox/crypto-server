@@ -5,6 +5,11 @@ const walletRouter = require('./wallet.router')
 const poloniexController = require('../controllers/crypto/poloniex.controller')
 const walletController = require('../controllers/wallet/wallet.controller')
 
+function setRoutes(app) {
+  app.use('/api/wallets', walletRouter)
+  app.use('/api', router)
+}
+
 router.route('/transaction-log')
   .get((req, res) => {
     res.send('Transaction Log')
@@ -20,6 +25,11 @@ router.route('/crypto')
     handleController(poloniexController.getCombined('USDT'), res)
   })
 
+router.route('/transaction')
+  .get((req, res) => {
+
+  })
+
 async function handleController(controllerPromise, res) {
   try { res.send(await controllerPromise) }
   catch (err) {
@@ -28,4 +38,4 @@ async function handleController(controllerPromise, res) {
   }
 }
 
-module.exports = router
+module.exports = { setRoutes }
