@@ -7,7 +7,6 @@ The cryptocurrency data service. Counterpart to [birdie](https://github.com/DrCa
 Install the following items:
   - [Node.js](https://nodejs.org/)
   - [Git](https://git-scm.com/downloads)
-  - [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)
   - [MongoDB Community Server](https://www.mongodb.com/)
 
 ## Setup
@@ -26,11 +25,11 @@ Make a request for data by visiting http://localhost:8080/api/crypto
 
 ## Deploying to prod
 
+Install the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)
 
-
-Clone the heroku repository:
+Link to the heroku repository:
 ```
-git remote add heroku https://git.heroku.com/owl-server.git
+heroku git:remote -a owl-server
 ```
 
 Then, to push to prod:
@@ -42,4 +41,4 @@ git push heroku master
 heroku logs
 ```
 
-Visit the site at https://owl-server.herokuapp.com
+Visit the site at https://owl-server.herokuapp.com/api/crypto
