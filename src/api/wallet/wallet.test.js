@@ -4,10 +4,10 @@ let mongoose = require('mongoose')
 let Mockgoose = require('mockgoose').Mockgoose
 let mockgoose = new Mockgoose(mongoose)
 
-let app = require('../app')
+let app = require('../../../app')
 let Promise = require('bluebird');
-let walletController = require('../src/api/wallet/wallet.controller')
-let Wallet = require('../src/api/wallet/wallet.model')
+let walletController = require('./wallet.controller')
+let Wallet = require('./wallet.model')
 
 let chai = require('chai')
 let chaiHttp = require('chai-http')
