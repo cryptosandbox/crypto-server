@@ -4,11 +4,11 @@ let mongoose = require('mongoose')
 let Mockgoose = require('mockgoose').Mockgoose
 let mockgoose = new Mockgoose(mongoose)
 
-let app = require('../../../app')
+let app = require('../app')
 let Promise = require('bluebird');
-let userController = require('./user.controller')
-let User = require('./user.model')
-const mockUser = require('./user.mock')
+let userController = require('../src/api/user/user.controller')
+let User = require('../src/api/user/user.model')
+const mockUser = require('../src/api/user/user.mock')
 
 let chai = require('chai')
 let chaiHttp = require('chai-http')
@@ -16,15 +16,10 @@ let should = chai.should()
 
 chai.use(chaiHttp)
 
-before(done => {
-  // Setup mockgoose
-  done()
-})
-
 describe('Users', () => {
-  // beforeEach( done => {
-  //   User.remove({}, err => { done() })
-  // })
+  beforeEach( done => {
+    User.remove({}, err => { done() })
+  })
 
   describe('/GET all users', () => {
     it('gets empty array by default', done => {
@@ -52,8 +47,6 @@ describe('Users', () => {
               res.should.have.status(200)
               res.body.should.be.a('array')
               res.body.should.have.length(2)
-              res.body[0]._id.should.equal(user1._id.toString())
-              res.body[1]._id.should.equal(user2._id.toString())
               done()
             })
         })
@@ -79,15 +72,12 @@ describe('Users', () => {
   })
 
   describe('/POST a user', () => {
-    it.only('adds a new user', done => {
+    it('adds a new user', done => {
       let user = mockUser[0];
-      console.error('---user---',user)
       chai.request(app)
         .post('/api/users')
         .send(user)
         .end((err, res) => {
-          if(err) { console.error(err) }
-          console.log('res',res.body)
           res.should.have.status(200)
           res.body.should.be.a('object')
           res.body.should.have.property('_id')
@@ -142,7 +132,7 @@ describe('Users', () => {
 
   describe('/GET one user', () => {
     it('returns one user by id', done => {
-      let user = new User(mockUser.user[0])
+      let user = new User(mockUser[0])
       user.save((err, user) => {
         chai.request(app)
           .get('/api/users/' + user._id)
@@ -168,16 +158,16 @@ describe('Users', () => {
     it('modifies the selected user', done => {
       let user = new User(mockUser[0])
       user.save((err, user) => {
-        let updatedUser = new User(mockUser[1])
+        user.email = 'updatedEmail'
         chai.request(app)
-          .put('/api/users/' + updatedUser._id)
-          .send(updatedUser)
+          .put('/api/users/' + user._id)
+          .send(user)
           .end((err, res) => {
             res.should.have.status(200)
             res.body.should.be.a('object')            
             res.body.should.have.property('_id').equals(user._id.toString())
             res.body.username.should.equal(user.username)
-            res.body.email.should.equal(updatedUser.email)
+            res.body.email.should.equal(user.email)
             done()
           })
       })

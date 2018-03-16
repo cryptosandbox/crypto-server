@@ -25,8 +25,6 @@ let UserSchema = new mongoose.Schema({
 });
 
 UserSchema.pre('save', function (next) {
-  console.log('pre-save')
-  console.log('this', this)
   var user = this
 
   bcrypt.hash(user.password, 10, (err, hash) => {

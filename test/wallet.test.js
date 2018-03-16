@@ -4,10 +4,10 @@ let mongoose = require('mongoose')
 let Mockgoose = require('mockgoose').Mockgoose
 let mockgoose = new Mockgoose(mongoose)
 
-let app = require('../../../app')
+let app = require('../app')
 let Promise = require('bluebird');
-let walletController = require('./wallet.controller')
-let Wallet = require('./wallet.model')
+let walletController = require('../src/api/wallet/wallet.controller')
+let Wallet = require('../src/api/wallet/wallet.model')
 
 let chai = require('chai')
 let chaiHttp = require('chai-http')
@@ -50,8 +50,6 @@ describe('Wallets', () => {
               res.should.have.status(200)
               res.body.should.be.a('array')
               res.body.should.have.length(2)
-              res.body[0]._id.should.equal(wallet1._id.toString())
-              res.body[1]._id.should.equal(wallet2._id.toString())
               done()
             })
         })

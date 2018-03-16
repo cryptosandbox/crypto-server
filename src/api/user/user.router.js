@@ -8,7 +8,6 @@ router.route('/')
     handleController(controller.readAll(req.query.owner), res)
   })
   .post((req, res) => {
-    console.log('req.body:', req.body)
     handleController(controller.create(req.body), res)
   })
   .delete((req, res) => {
@@ -28,10 +27,7 @@ router.route('/:id')
 
 async function handleController(controllerPromise, res) {
   try { res.json(await controllerPromise) }
-  catch (reason) { 
-    console.error(reason);
-    res.status(500).send(reason)
-  }
+  catch (reason) { res.status(500).send(reason) }
 }
 
 module.exports = router
