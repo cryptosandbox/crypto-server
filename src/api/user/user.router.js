@@ -8,6 +8,7 @@ router.route('/')
     handleController(controller.readAll(req.query.owner), res)
   })
   .post((req, res) => {
+    console.log('req.body:', req.body)
     handleController(controller.create(req.body), res)
   })
   .delete((req, res) => {

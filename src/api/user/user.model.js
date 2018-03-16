@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
 
-const UserSchema = new mongoose.Schema({
+let UserSchema = new mongoose.Schema({
   email: {
     type: String,
     unique: true,
@@ -24,11 +24,14 @@ const UserSchema = new mongoose.Schema({
   }
 });
 
-UserSchema.pre('save', (next) => {
-  console.log('password:',this.password)
-  bcrypt.hash(this.password, 10, (err, hash) => {
-    if(err) { return next(err) }
-    this.password = hash
+UserSchema.pre('save', function (next) {
+  console.log('pre-save')
+  console.log('this', this)
+  var user = this
+
+  bcrypt.hash(user.password, 10, (err, hash) => {
+    if (err) return next(err)
+    user.password = hash
     next()
   })
 })

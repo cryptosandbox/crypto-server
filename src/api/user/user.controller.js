@@ -7,7 +7,9 @@ mongoose.Promise = require('bluebird')
 module.exports = {
   create: (user) => {
     delete user._id
-    return new User(user).save()
+    let mongoUser = new User(user)
+    console.log('mongoUser:', mongoUser)
+    return mongoUser.save()
   },
 
   readAll: (owner) => {

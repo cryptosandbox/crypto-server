@@ -86,8 +86,8 @@ describe('Users', () => {
         .post('/api/users')
         .send(user)
         .end((err, res) => {
-          //if(err) { console.error(err) }
-          //console.log('res',res)
+          if(err) { console.error(err) }
+          console.log('res',res.body)
           res.should.have.status(200)
           res.body.should.be.a('object')
           res.body.should.have.property('_id')
