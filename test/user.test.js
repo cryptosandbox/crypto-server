@@ -21,6 +21,10 @@ describe('Users', () => {
     User.remove({}, err => { done() })
   })
 
+  afterEach(done => {
+    User.remove({}, err => { done() })
+  })
+
   describe('/GET all users', () => {
     it('gets empty array by default', done => {
       chai.request(app)
@@ -173,11 +177,12 @@ describe('Users', () => {
       })
     })
 
-    it('returns error on incorrect id', () => {
+    it('returns error on incorrect id', done => {
       chai.request(app)
         .put('/api/users/' + 'incorrectid')
         .end((err, res) => {
           res.should.have.status(500)
+          done();
         })
     })
   })
@@ -203,11 +208,12 @@ describe('Users', () => {
       })
     })
 
-    it('returns error on incorrect id', () => {
+    it('returns error on incorrect id', done => {
       chai.request(app)
         .delete('/api/users/' + 'incorrectid')
         .end((err, res) => {
           res.should.have.status(500)
+          done()
         })
     })
   })

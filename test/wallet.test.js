@@ -24,6 +24,10 @@ describe('Wallets', () => {
     Wallet.remove({}, err => { done() })
   })
 
+  afterEach(done => {
+    Wallet.remove({}, err => { done() })
+  })
+
   describe('/GET all wallets', () => {
     it('gets empty array by default', done => {
       chai.request(app)
@@ -162,11 +166,12 @@ describe('Wallets', () => {
       })
     })
 
-    it('returns error on incorrect id', () => {
+    it('returns error on incorrect id', done => {
       chai.request(app)
         .get('/api/wallets/' + 'incorrectid')
         .end((err, res) => {
           res.should.have.status(500)
+          done()
         })
     })
   })
@@ -195,11 +200,12 @@ describe('Wallets', () => {
       })
     })
 
-    it('returns error on incorrect id', () => {
+    it('returns error on incorrect id', done => {
       chai.request(app)
         .put('/api/wallets/' + 'incorrectid')
         .end((err, res) => {
           res.should.have.status(500)
+          done()
         })
     })
   })
@@ -225,11 +231,12 @@ describe('Wallets', () => {
       })
     })
 
-    it('returns error on incorrect id', () => {
+    it('returns error on incorrect id', done => {
       chai.request(app)
         .delete('/api/wallets/' + 'incorrectid')
         .end((err, res) => {
           res.should.have.status(500)
+          done()
         })
     })
   })
