@@ -16,14 +16,15 @@ let should = chai.should()
 
 chai.use(chaiHttp)
 
-before( done => {
+before(done => {
+  // Setup mockgoose
   done()
 })
 
 describe('Users', () => {
-  beforeEach( done => {
-    User.deleteMany((err) => { done() })
-  })
+  // beforeEach( done => {
+  //   User.remove({}, err => { done() })
+  // })
 
   describe('/GET all users', () => {
     it('gets empty array by default', done => {
@@ -80,10 +81,13 @@ describe('Users', () => {
   describe('/POST a user', () => {
     it.only('adds a new user', done => {
       let user = mockUser[0];
+      console.error('---user---',user)
       chai.request(app)
         .post('/api/users')
         .send(user)
         .end((err, res) => {
+          //if(err) { console.error(err) }
+          //console.log('res',res)
           res.should.have.status(200)
           res.body.should.be.a('object')
           res.body.should.have.property('_id')
@@ -94,7 +98,7 @@ describe('Users', () => {
     })
 
     it('ignores the _id field', done => {
-      let user = mockUser
+      let user = mockUser[0]
       chai.request(app)
       .post('/api/users')
       .send(user)
@@ -144,7 +148,7 @@ describe('Users', () => {
           .get('/api/users/' + user._id)
           .end((err, res) => {
             res.should.have.status(200)
-            res.body.should.be.a('object')            
+            res.body.should.be.a('object')
             res.body.should.have.property('_id').equals(user._id.toString())
           done()
           })

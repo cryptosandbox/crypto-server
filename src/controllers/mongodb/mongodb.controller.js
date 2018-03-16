@@ -1,15 +1,22 @@
 const mongoose = require('mongoose')
+let Mockgoose = require('mockgoose').Mockgoose
+const app = require('../../../app')
 
-function connect(connection) {
+function connect() {
   return new Promise((res, rej) => {
-    if(connection == null) { connection = mongoose }
-    connection.connect(process.env.MONGODB_URI)
+    let connectionString = process.env.MONGODB_URI + process.env.APP_DB;
+    
+    if(process.env.NODE_ENV === 'test') {
+      connectionString = process.env.MONGODB_URI + process.env.TEST_DB;
+    }    
+
+    mongoose.connect(connectionString)
       .then(() => {
-        console.log('mongoose connection successful')
+        console.log(`mongoose successfully connected to ${connectionString}`)
         res()
       })
       .catch(reason => {
-        console.error('mongoose not connected\n', reason)
+        console.error(`mongoose failed to connect to ${connectionString}\nReason:`, reason)
         rej(reason)
       })
   })

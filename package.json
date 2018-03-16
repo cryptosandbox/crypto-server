@@ -10,7 +10,7 @@
   "scripts": {
     "start": "nodemon app.js",
     "debug": "node --inspect-brk app.js",
-    "test": "mocha --exit './src/api/**/*.test.js"
+    "test": "mocha --exit src/**/*.test.js"
   },
   "repository": {
     "type": "git",
@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/DrCalx/owl#readme",
   "dependencies": {
+    "bcrypt": "^1.0.3",
     "bluebird": "^3.5.1",
     "body-parser": "^1.18.2",
     "cors": "^2.8.4",
