@@ -6,9 +6,9 @@ function connect(dbName) {
     let connectionString = ""
 
     if(process.env.NODE_ENV === 'test'){
-      connectionString = `${process.env.MONGODB_URI}/test-${dbName}`
+      connectionString = `${process.env.MONGODB_URI}-test-${dbName}`
     } else {
-      connectionString = `${process.env.MONGODB_URI}/${process.env.DB}`
+      connectionString = process.env.MONGODB_URI
     }
 
     mongoose.connect(connectionString)
