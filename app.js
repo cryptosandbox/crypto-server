@@ -16,20 +16,12 @@ app.use(bodyParser.json())
 apiRouter.setRoutes(app)
 
 if(process.env.NODE_ENV != 'test') {
-  initializeDb()
+  dbController.connect()
 }
 
 app.listen(process.env.PORT || 8080, () => {
   console.log(`running on ${process.env.HOST}:${process.env.PORT}`)
   console.log(`running in ${process.env.NODE_ENV} mode`)
 })
-
-async function initializeDb() {
-  try {
-    await dbController.connect()
-  } catch (error) {
-    console.error('Error on db initialization:', error)
-  }
-}
 
 module.exports = app

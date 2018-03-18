@@ -1,28 +1,23 @@
 process.env.NODE_ENV = 'test'
 
-let app = require('../app')
-let Promise = require('bluebird');
-let walletController = require('../src/api/wallet/wallet.controller')
-let Wallet = require('../src/api/wallet/wallet.model')
+const app = require('../app')
+const Promise = require('bluebird');
+const walletController = require('../src/api/wallet/wallet.controller')
+const Wallet = require('../src/api/wallet/wallet.model')
 const dbController = require('../src/controllers/db/db.controller')
 
-let chai = require('chai')
-let chaiHttp = require('chai-http')
-let should = chai.should()
+const chai = require('chai')
+const chaiHttp = require('chai-http')
+const should = chai.should()
 
 chai.use(chaiHttp)
 
 before(done => {
-  dbController.connect('wallet')
-    .then(() => { done() })
+  dbController.connect('wallet').then(done)
 })
 
 describe('Wallets', () => {
-  beforeEach( done => {
-    Wallet.remove({}, err => { done() })
-  })
-
-  afterEach(done => {
+  beforeEach(done => {
     Wallet.remove({}, err => { done() })
   })
 
