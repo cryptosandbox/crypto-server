@@ -1,14 +1,11 @@
 process.env.NODE_ENV = 'test'
 
-let mongoose = require('mongoose')
-let Mockgoose = require('mockgoose').Mockgoose
-let mockgoose = new Mockgoose(mongoose)
-
 let app = require('../app')
 let Promise = require('bluebird');
 let userController = require('../src/api/user/user.controller')
 let User = require('../src/api/user/user.model')
 const mockUser = require('../src/api/user/user.mock')
+const dbController = require('../src/controllers/db/db.controller')
 
 let chai = require('chai')
 let chaiHttp = require('chai-http')
@@ -16,12 +13,13 @@ let should = chai.should()
 
 chai.use(chaiHttp)
 
+before(done => {
+  dbController.connect('user')
+    .then(() => { done() })
+})
+
 describe('Users', () => {
   beforeEach( done => {
-    User.remove({}, err => { done() })
-  })
-
-  afterEach(done => {
     User.remove({}, err => { done() })
   })
 

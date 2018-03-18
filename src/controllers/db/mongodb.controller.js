@@ -1,14 +1,15 @@
 const mongoose = require('mongoose')
-let Mockgoose = require('mockgoose').Mockgoose
 const app = require('../../../app')
 
-function connect() {
+function connect(dbName) {
   return new Promise((res, rej) => {
-    let connectionString = process.env.MONGODB_URI + process.env.APP_DB;
-    
-    if(process.env.NODE_ENV === 'test') {
-      connectionString = process.env.MONGODB_URI + process.env.TEST_DB;
-    }    
+    let connectionString = ""
+
+    if(process.env.NODE_ENV === 'test'){
+      connectionString = `${process.env.MONGODB_URI}/test-${dbName}`
+    } else {
+      connectionString = `${process.env.MONGODB_URI}/${process.env.DB}`
+    }
 
     mongoose.connect(connectionString)
       .then(() => {
