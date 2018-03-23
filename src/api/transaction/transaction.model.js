@@ -4,7 +4,6 @@ const Schema = mongoose.Schema
 const transactionSchema = new Schema({
   owner: String,
   coin: String,
-  side: Boolean,
   amount: Number,
   price: Number
 })

@@ -1,9 +1,10 @@
 process.env.NODE_ENV = 'test'
 
 const app = require('../app')
-const Promise = require('bluebird');
+const Promise = require('bluebird')
 const walletController = require('../src/api/wallet/wallet.controller')
 const Wallet = require('../src/api/wallet/wallet.model')
+const walletMocks = require('./wallet.mocks')
 const dbController = require('../src/controllers/db/db.controller')
 
 const chai = require('chai')
@@ -34,16 +35,15 @@ describe('Wallets', () => {
     })
 
     it('gets all wallets', done => {
-      let wallet1 = new Wallet()
-      let wallet1promise = wallet1.save()
-      let wallet2 = new Wallet()
-      let wallet2promise = wallet2.save()
+      let firstPromise = walletController.create(walletMocks[0])
+      let secondPromise = walletController.create(walletMocks[1])
 
-      Promise.all([wallet1promise, wallet2promise])
+      Promise.all([firstPromise, secondPromise])
         .then((values) => {
           chai.request(app)
             .get('/api/wallets')
             .end((err, res) => {
+              console.log(res.body)
               res.should.have.status(200)
               res.body.should.be.a('array')
               res.body.should.have.length(2)
@@ -53,36 +53,30 @@ describe('Wallets', () => {
     })
   })
 
-  describe('/GET wallet by name', () => {
-    it('returns the correct wallet', async () => {
-      let wallet = {
-        owner: 'mduguay',
-        holdings: [{ coin: 'BTC', balance: 64}]
-      }
+  describe('/GET wallet by user', () => {
+    it('returns the correct wallet', done => {
+      let firstPromise = walletController.create(walletMocks[0])
+      let secondPromise = walletController.create(walletMocks[1])
 
-      let wallet2 = {
-        owner: 'tnorling',
-      }
-
-      await walletController.create(wallet)
-      await walletController.create(wallet2)
-
-      let c = chai.request(app)
-        .get('/api/wallets?owner=mduguay')
-        .end((err, res) => {
-          res.should.have.status(200)
-          res.body.owner.should.equal('mduguay')
-          res.body.holdings[0].balance.should.equal(64)
+      Promise.all([firstPromise, secondPromise])
+        .then(values =>  {
+          chai.request(app)
+            .get(`/api/wallets?user=${walletMocks[0].user}`)
+            .end((err, res) => {
+              console.log(res.body)
+              res.should.have.status(200)
+              res.body[0].user.should.equal(walletMocks[0].user)
+              res.body[0].holdings[0].balance.should.equal(64)
+              done()
+            })
         })
     })
   })
 
   describe('/POST a wallet', () => {
     it('adds a new wallet', done => {
-      let wallet = {
-        owner: 'John Doe',
-        holdings: [{ coin: 'BTC', balance: 64}]
-      }
+      let wallet = walletMocks[0]
+
       chai.request(app)
         .post('/api/wallets')
         .send(wallet)
@@ -90,7 +84,7 @@ describe('Wallets', () => {
           res.should.have.status(200)
           res.body.should.be.a('object')
           res.body.should.have.property('_id')
-          res.body.owner.should.equal(wallet.owner)
+          res.body.user.should.equal(wallet.user)
           res.body.holdings[0].balance.should.equal(wallet.holdings[0].balance)
           done()
         })
@@ -99,7 +93,7 @@ describe('Wallets', () => {
     it('ignores the _id field', done => {
       let wallet = {
         _id: '',
-        owner: 'Mark Smith',
+        user: 'Mark Smith',
         holdings: [{ coin: 'BTC', balance: 64}]
       }
       chai.request(app)
@@ -109,7 +103,7 @@ describe('Wallets', () => {
         res.should.have.status(200)
         res.body.should.be.a('object')
         res.body.should.have.property('_id')
-        res.body.owner.should.equal(wallet.owner)
+        res.body.user.should.equal(wallet.user)
         res.body.holdings[0].balance.should.equal(wallet.holdings[0].balance)
         done()
       })
@@ -118,12 +112,10 @@ describe('Wallets', () => {
 
   describe('/DELETE all wallets', () => {
     it('removes all wallets', done => {
-      let wallet1 = new Wallet()
-      let wallet1promise = wallet1.save()
-      let wallet2 = new Wallet()
-      let wallet2promise = wallet2.save()
+      let firstPromise = walletController.create(walletMocks[0])
+      let secondPromise = walletController.create(walletMocks[1])
 
-      Promise.all([wallet1promise, wallet2promise])
+      Promise.all([firstPromise, secondPromise])
         .then((values) => {
           chai.request(app)
             .delete('/api/wallets')

@@ -10,15 +10,16 @@ module.exports = {
     return new Wallet(wallet).save()
   },
 
-  readAll: (owner) => {
-    if (owner) {
-      return Wallet.findOne({owner: owner})
-    }
+  readAll: () => {
     return Wallet.find()
   },
 
   read: (id) => {
     return Wallet.findById(ObjectId(id))
+  },
+
+  readByUser: (user) => {
+    return Wallet.find({ user: user })
   },
   
   update: (id, wallet) => {
