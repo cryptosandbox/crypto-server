@@ -14,12 +14,13 @@ Install the following items:
 To get set up, run the following commands:
 ```
 git clone git@github.com:DrCalx/owl.git
+cd owl/
 npm install
 cp .env.template .env
 npm start
 ```
 
-The default configuration assumes you have MongoDB running locally.
+The default configuration assumes you have `mongod` running locally.
 
 Make a request for data by visiting http://localhost:8080/api/crypto
 
