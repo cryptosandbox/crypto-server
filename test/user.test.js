@@ -98,6 +98,7 @@ describe('Users', () => {
         res.body.should.be.a('object')
         res.body.should.have.property('_id')
         res.body.username.should.equal(user.username)
+        res.body.holdings.should.be.a('array')
         done()
       })
     })
