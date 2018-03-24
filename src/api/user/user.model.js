@@ -24,7 +24,7 @@ let UserSchema = new mongoose.Schema({
   },
   holdings: [{
     coin: String,
-    balance: Number
+    amount: Number
   }]
 });
 
