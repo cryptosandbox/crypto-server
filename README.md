@@ -39,6 +39,7 @@ npm version patch
 git push master
 git push heroku master
 heroku logs
+heroku open
 ```
 
 Visit the site at https://owl-server.herokuapp.com/api/crypto
