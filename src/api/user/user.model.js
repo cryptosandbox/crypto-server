@@ -21,7 +21,11 @@ let UserSchema = new mongoose.Schema({
   passwordConf: {
     type: String,
     required: true,
-  }
+  },
+  holdings: [{
+    coin: String,
+    balance: Number
+  }]
 });
 
 UserSchema.pre('save', function (next) {
