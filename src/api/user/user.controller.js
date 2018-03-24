@@ -10,10 +10,7 @@ module.exports = {
     return new User(user).save()
   },
 
-  readAll: (owner) => {
-    if (owner) {
-      return user.findOne({owner: owner})
-    }
+  readAll: () => {
     return User.find()
   },
 

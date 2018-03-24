@@ -5,7 +5,7 @@ const controller = require('./user.controller')
 
 router.route('/')
   .get((req, res) => {
-    handleController(controller.readAll(req.query.owner), res)
+    handleController(controller.readAll(), res)
   })
   .post((req, res) => {
     handleController(controller.create(req.body), res)
