@@ -22,10 +22,6 @@ module.exports = {
     return User.findByIdAndUpdate(id, user, { new: true }).exec()
   },
 
-  deleteAll: () => {
-    return User.deleteMany()
-  },
-
   delete: (id) => {
     return User.findByIdAndRemove(id)
   }

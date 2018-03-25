@@ -98,37 +98,8 @@ describe('Users', () => {
         res.body.should.be.a('object')
         res.body.should.have.property('_id')
         res.body.username.should.equal(user.username)
-        res.body.holdings.should.be.a('array')
         done()
       })
-    })
-  })
-
-  describe('/DELETE all users', () => {
-    it('removes all users', done => {
-      let user1 = new User(mockUser[0])
-      let user1promise = user1.save()
-      let user2 = new User(mockUser[1])
-      let user2promise = user2.save()
-
-      Promise.all([user1promise, user2promise])
-        .then((values) => {
-          chai.request(app)
-            .delete('/api/users')
-            .end((err, res) => {
-              res.should.have.status(200)
-              res.body.should.be.a('object')
-              res.body.ok.should.be.equal(1)
-              chai.request(app)
-                .get('/api/users')
-                .end((err, res) => {
-                  res.should.have.status(200)
-                  res.body.should.be.a('array')
-                  res.body.length.should.be.eql(0)
-                  done()
-                })
-            })
-        })
     })
   })
 

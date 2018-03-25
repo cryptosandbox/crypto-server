@@ -22,10 +22,9 @@ let UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  holdings: [{
-    coin: String,
-    amount: Number
-  }]
+  wallet: {
+    type: String
+  }
 });
 
 UserSchema.pre('save', function (next) {
