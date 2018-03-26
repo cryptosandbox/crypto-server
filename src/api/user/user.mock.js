@@ -1,16 +1,16 @@
 module.exports = [
   {
     email: 'tester@owl.com',
-    username: 'tester',
+    name: 'tester',
     password: 'abc123',
     passwordConf: 'abc123',
-    wallet: 'mockWallet1'
+    walletId: '1'
   },
   {
     email: 'anotherTester@owl.com',
-    username: 'anotherTester',
+    name: 'anotherTester',
     password: 'abc123',
     passwordConf: 'abc123',
-    wallet: 'mockWallet2'
+    walletId: '2'
   }
 ]

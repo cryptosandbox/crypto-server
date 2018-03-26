@@ -24,5 +24,9 @@ module.exports = {
 
   delete: (id) => {
     return User.findByIdAndRemove(id)
+  },
+  
+  deleteAll: () => {
+    return User.deleteMany()
   }
 }

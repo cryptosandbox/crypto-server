@@ -1,14 +1,15 @@
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
+const Schema = mongoose.Schema
 
-let UserSchema = new mongoose.Schema({
-  email: {
+let UserSchema = new Schema({
+  name: {
     type: String,
     unique: true,
     required: true,
     trim: true
   },
-  username: {
+  email: {
     type: String,
     unique: true,
     required: true,
@@ -22,8 +23,9 @@ let UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  wallet: {
-    type: String
+  walletId: {
+    type: Schema.Types.ObjectId,
+    ref: 'Wallet'
   }
 });
 
