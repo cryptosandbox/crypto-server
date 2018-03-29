@@ -4,6 +4,9 @@ const router = express.Router()
 const controller = require('./wallet.controller')
 
 router.route('/')
+  .get((req, res) => {
+    handleController(controller.readAll(), res)
+  })
   .post((req, res) => {
     handleController(controller.create(req.body), res)
   })

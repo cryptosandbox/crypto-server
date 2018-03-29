@@ -7,13 +7,15 @@ dotEnv.config()
 
 const dbController = require('./src/controllers/db/db.controller')
 const apiRouter = require('./src/api/api.router')
+const authRouter = require('./src/auth/auth.router')
 
 const app = express()
 
 app.use(cors())
 app.use(bodyParser.json())
 
-apiRouter.setRoutes(app)
+apiRouter(app)
+app.use('/auth', authRouter)
 
 if(process.env.NODE_ENV != 'test') {
   dbController.connect()
