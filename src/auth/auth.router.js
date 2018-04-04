@@ -5,28 +5,29 @@ const oAuth2Server = require('node-oauth2-server')
 const controller = require('./auth.controller')
 const model = require('./auth.model')
 
-router.route('/signin')
-  .post(app.oauth.grant())
+module.exports = {
+  initialize: (app, router) => {
+    app.oauth = oAuth2Server({
+      model: model,
+      grants: ['password'],
+      debug: true
+    })
 
-router.route('/signup')
-  .post((req, res) => {
-    controller.signup(req.body)
-  })
+    app.use(app.oauth.errorHandler())
 
-function initialize(app) {
-  app.oauth = oAuth2Server({
-    model: oAuthModel,
-    grants: ['password'],
-    debug: true
-  })
+    router.route('/signin')
+      .post(app.oauth.grant())
 
-  app.use('/auth', router)
-  app.use(expressApp.oauth.errorHandler())
+    router.route('/signup')
+      .post((req, res) => {
+        handleController(model.saveUser(req.body), res)
+      })
+    
+    return router
+  }
 }
 
 async function handleController(controllerPromise, res) {
   try { res.json(await controllerPromise) }
   catch (reason) { res.status(500).send(reason) }
 }
-
-module.exports = router

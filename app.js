@@ -2,7 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const dotEnv = require('dotenv')
 const cors = require('cors')
-const oAuth2Server = require('node-oauth2-server')
+
 
 dotEnv.config()
 
@@ -16,14 +16,10 @@ app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
-app.oauth = oAuth2Server({
-  model: oAuthModel,
-  grants: ['password'],
-  debug: true
-})
+apiRouter.initialize(app)
+const aRouter = authRouter.initialize(app, express.Router())
 
-apiRouter(app)
-app.use('/auth', authRouter)
+app.use('/auth', aRouter)
 
 if(process.env.NODE_ENV != 'test') {
   dbController.connect()
