@@ -3,12 +3,11 @@ const bodyParser = require('body-parser')
 const dotEnv = require('dotenv')
 const cors = require('cors')
 
-
 dotEnv.config()
 
 const dbController = require('./src/controllers/db/db.controller')
 const apiRouter = require('./src/api/api.router')
-const authRouter = require('./src/auth/auth.router')
+const authRouter = require('./src/OAuth2/auth.router')
 
 const app = express()
 
@@ -17,9 +16,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
 apiRouter.initialize(app)
-const aRouter = authRouter.initialize(app, express.Router())
-
-app.use('/auth', aRouter)
+authRouter.initialize(app)
 
 if(process.env.NODE_ENV != 'test') {
   dbController.connect()

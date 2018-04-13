@@ -17,6 +17,10 @@ module.exports = {
   read: (id) => {
     return User.findById(ObjectId(id))
   },
+
+  findByLogin: (username, password) => {
+    return User.find({username: username, password: password})
+  },
   
   update: (id, user) => {
     return User.findByIdAndUpdate(id, user, { new: true }).exec()

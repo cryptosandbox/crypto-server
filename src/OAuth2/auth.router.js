@@ -6,7 +6,7 @@ const controller = require('./auth.controller')
 const model = require('./auth.model')
 
 module.exports = {
-  initialize: (app, router) => {
+  initialize: (app) => {
     app.oauth = oAuth2Server({
       model: model,
       grants: ['password'],
@@ -15,14 +15,17 @@ module.exports = {
 
     app.use(app.oauth.errorHandler())
 
-    router.route('/signin')
-      .post(app.oauth.grant())
+    router.post('/signin', app.oauth.grant(), (req, res) => { res.send('signed in') })
 
     router.route('/signup')
       .post((req, res) => {
         handleController(model.saveUser(req.body), res)
       })
     
+    router.post('/access', app.oauth.authorise(), (req, res) => { res.send('you have gained access') })
+
+    app.use('/auth', router)
+
     return router
   }
 }
