@@ -9,22 +9,37 @@ module.exports = {
     return Token.findOne({ accessToken: accessToken })
   },
 
-  getClient: (clientId, clientSecret) => {
+  getClient: (clientId, clientSecret, callback) => {
     console.log('getClient')
     let client = {
-      id: clientId,
-      grants: ['password']
+      clientId,
+      clientSecret,
+      grants: null,
+      redirectUris: null
     }
     // return Client.findOne({ id: clientId, secret: clientSecret })
-    return client
+    // return new Promise((res, rej) => { res(client) })
+    callback(false, client)
   },
 
-  getUser: (username, password) => {
+  grantTypeAllowed: (clientId, grantType, callback) => {
+    console.log('grantTypeAllowed')
+    callback(false, true)
+  },
+
+  getUser: (username, password, callback) => {
     console.log('getUser')
-    return User.findOne({ name: username, password: password })
+    userController.findByLogin(username, password)
+      .then((user) => {
+        console.log('User:', user[0])
+        callback(false, user[0])
+      })
+      .catch(reason => {
+        callback(true, reason)
+      })
   },
 
-  saveToken: (token, client, user) => {
+  saveAccessToken: (token, client, expires, user, callback) => {
     console.log('saveToken')
     let newToken = {
       accessToken: token.accessToken,
@@ -38,6 +53,9 @@ module.exports = {
       }
     }
 
-    return new Token(newToken).save()
+    new Token(newToken).save()
+      .then(token => {
+        callback(false, token)
+      })
   }
 }

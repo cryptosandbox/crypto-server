@@ -4,6 +4,7 @@ const oAuth2Server = require('node-oauth2-server')
 
 const controller = require('./auth.controller')
 const model = require('./auth.model')
+const userController = require('../api/user/user.controller')
 
 module.exports = {
   initialize: (app) => {
@@ -19,7 +20,7 @@ module.exports = {
 
     router.route('/signup')
       .post((req, res) => {
-        handleController(model.saveUser(req.body), res)
+        handleController(userController.create(req.body), res)
       })
     
     router.post('/access', app.oauth.authorise(), (req, res) => { res.send('you have gained access') })

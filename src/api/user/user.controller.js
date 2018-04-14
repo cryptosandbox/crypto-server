@@ -19,7 +19,7 @@ module.exports = {
   },
 
   findByLogin: (username, password) => {
-    return User.find({username: username, password: password})
+    return User.find({ username: username })
   },
   
   update: (id, user) => {
