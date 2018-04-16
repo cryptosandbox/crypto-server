@@ -3,7 +3,7 @@ const Schema = mongoose.Schema
 
 let TokenSchema = new Schema({
   accessToken: String,
-  accessTokenExpiresAt: Date,
+  expires: Date,
   scope: String,
   client: {
     id: String
