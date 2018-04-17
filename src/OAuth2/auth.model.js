@@ -21,8 +21,6 @@ module.exports = {
       grants: null,
       redirectUris: null
     }
-    // return Client.findOne({ id: clientId, secret: clientSecret })
-    // return new Promise((res, rej) => { res(client) })
     callback(false, client)
   },
 
@@ -35,8 +33,8 @@ module.exports = {
     console.log('getUser')
     userController.findByLogin(username, password)
       .then((user) => {
-        console.log('User:', user[0])
-        callback(false, user[0])
+        console.log('User:', user)
+        callback(false, user)
       })
       .catch(reason => {
         callback(true, reason)

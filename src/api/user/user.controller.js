@@ -1,8 +1,10 @@
 const mongoose = require('mongoose')
 const ObjectId = require('mongoose').Types.ObjectId
 const User = require('./user.model')
+const Promise = require('bluebird')
+const bcrypt = require('bcrypt')
 
-mongoose.Promise = require('bluebird')
+mongoose.Promise = Promise
 
 module.exports = {
   create: (user) => {
@@ -19,7 +21,18 @@ module.exports = {
   },
 
   findByLogin: (username, password) => {
-    return User.find({ username: username })
+    return new Promise((resolve, reject) => {
+      User.findOne({ username: username })
+        .then(user => {
+          console.log('found user:', user)
+          console.log('password:', password)
+          console.log('user.password:', user.password)
+          bcrypt.compare(password, user.password, (err, res) => {
+            if(res) { console.log('res:', res); resolve(user) } 
+            else { console.log('err:', err); reject(err) }
+          })
+        })
+      })
   },
   
   update: (id, user) => {
