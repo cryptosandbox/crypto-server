@@ -23,7 +23,7 @@ module.exports = {
         handleController(userController.create(req.body), res)
       })
     
-    router.post('/access', app.oauth.authorise(), (req, res) => { console.log('got here'); res.send('you have gained access') })
+    router.route('/access').post(app.oauth.authorise(), (req, res) => { console.log('got here'); res.send('you have gained access') })
 
     app.use('/auth', router)
 
