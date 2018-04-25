@@ -17,6 +17,10 @@ module.exports = {
   read: (id) => {
     return Wallet.findById(ObjectId(id))
   },
+
+  readByUser: (userId) => {
+    return Wallet.findOne({ userId: userId })
+  },
   
   update: (id, wallet) => {
     return Wallet.findByIdAndUpdate(id, wallet, { new: true }).exec()

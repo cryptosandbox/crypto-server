@@ -41,6 +41,7 @@ module.exports = {
     
     router.route('/access')
       .post(passport.authenticate('bearer', { session: false }), (req, res) => { 
+        console.log("User:", req.user)
         res.send('you have gained access') 
       })
 

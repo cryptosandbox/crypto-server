@@ -9,6 +9,7 @@ mongoose.Promise = Promise
 module.exports = {
   create: (user) => {
     delete user._id
+    hashPassword(user)
     return new User(user).save()
   },
 
@@ -24,18 +25,20 @@ module.exports = {
     return new Promise((resolve, reject) => {
       User.findOne({ username: username })
         .then(user => {
-          console.log('found user:', user)
-          console.log('password:', password)
-          console.log('user.password:', user.password)
-          bcrypt.compare(password, user.password, (err, res) => {
-            if(res) { console.log('res:', res); resolve(user) } 
-            else { console.log('err:', err); reject(err) }
-          })
+          if (user) { 
+            bcrypt.compare(password, user.password, (err, res) => {
+              if(res) { resolve(user) } 
+              else { reject(err) }
+            })
+          } else {
+            reject(new Error('user not found'))
+          }
         })
       })
   },
   
   update: (id, user) => {
+    hashPassword(user)
     return User.findByIdAndUpdate(id, user, { new: true }).exec()
   },
 
@@ -46,4 +49,12 @@ module.exports = {
   deleteAll: () => {
     return User.deleteMany()
   }
+}
+
+function hashPassword(user) {
+  bcrypt.hash(user.password, 10, (err, hash) => {
+    if (err) return next(err)
+    console.log(hash)
+    user.password = hash
+  })
 }

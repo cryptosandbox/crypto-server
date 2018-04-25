@@ -8,8 +8,8 @@ let WalletSchema = new Schema({
     required: true
   },
   holdings: [{
-    coin: String,
-    amount: Number
+    symbol: String,
+    balance: Number
   }]
 })
 

@@ -6,10 +6,7 @@ const Client = require('./client.model')
 module.exports = {
   getAccessToken: (accessToken, callback) => {
     Token.findOne({accessToken: accessToken})
-      .then(token => {
-        console.log(token)
-        callback(false, token)
-      })
+      .then(token => { callback(false, token) })
   },
 
   getClient: (clientId, clientSecret, callback) => {
@@ -28,12 +25,8 @@ module.exports = {
 
   getUser: (username, password, callback) => {
     userController.findByLogin(username, password)
-      .then((user) => {
-        callback(false, user)
-      })
-      .catch(reason => {
-        callback(true, reason)
-      })
+      .then(user => { callback(false, user) })
+      .catch(reason => { callback(true, reason) })
   },
 
   saveAccessToken: (token, client, expires, user, callback) => {
