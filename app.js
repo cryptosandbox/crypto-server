@@ -21,7 +21,7 @@ apiRouter.initialize(app)
 authRouter.initialize(app)
 
 if(process.env.NODE_ENV != 'test') {
-  dbController.connect()
+  dbController.connect('owl')
 }
 
 app.listen(process.env.PORT || 8080, () => {

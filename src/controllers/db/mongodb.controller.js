@@ -8,7 +8,7 @@ function connect(dbName) {
     if(process.env.NODE_ENV === 'test'){
       connectionString = `${process.env.MONGODB_URI}-test-${dbName}`
     } else {
-      connectionString = process.env.MONGODB_URI
+      connectionString = process.env.MONGODB_URI+dbName
     }
 
     mongoose.connect(connectionString)
