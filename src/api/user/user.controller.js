@@ -11,7 +11,6 @@ module.exports = {
   create: (user) => {
     return new Promise((res, rej) => {
       delete user._id
-      hashPassword(user)
       new User(user).save()
         .then(newUser => {
           let wallet = { userId: newUser._id }
@@ -67,6 +66,8 @@ module.exports = {
 function hashPassword(user) {
   bcrypt.hash(user.password, 10, (err, hash) => {
     if (err) return next(err)
+    console.log('hashed password:', hash)
     user.password = hash
+    console.log('user.password:', user.password)
   })
 }

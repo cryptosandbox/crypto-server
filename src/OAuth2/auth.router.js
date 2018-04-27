@@ -11,7 +11,7 @@ const userController = require('../api/user/user.controller')
 passport.use(new Strategy((bearerToken, callback) => {
   controller.findByToken(bearerToken)
     .then(token => {
-      if (!token.user) { return callback(null, false) }
+      if (!token || !token.user) { return callback(null, false) }
       return callback(null, token.user)
     })
     .catch(reason => {
