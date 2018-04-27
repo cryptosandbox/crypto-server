@@ -1,3 +1,4 @@
+const bcrypt = require('bcrypt')
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
@@ -26,8 +27,9 @@ let UserSchema = new Schema({
 
 UserSchema.pre('save', function (next) {
   var user = this
-
+  console.log("Saving")
   bcrypt.hash(user.password, 10, (err, hash) => {
+    console.log("something got hashed")
     if (err) return next(err)
     user.password = hash
     next()

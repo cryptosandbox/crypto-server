@@ -11,8 +11,10 @@ module.exports = {
   create: (user) => {
     return new Promise((res, rej) => {
       delete user._id
+      console.log("attempting to save user")
       new User(user).save()
         .then(newUser => {
+          console.log("This gets here")
           let wallet = { userId: newUser._id }
           walletController.create(wallet)
             .then(wallet => {
