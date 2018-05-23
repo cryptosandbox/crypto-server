@@ -1,11 +1,14 @@
 const express = require('express')
 const router = express.Router()
+const passport = require('passport')
 
 const controller = require('./user.controller')
 
+router.use(passport.authenticate('bearer', { session: false }))
+
 router.route('/')
   .get((req, res) => {
-    handleController(controller.readAll(), res)
+    handleController(controller.read(req.user.id), res)
   })
   .post((req, res) => {
     handleController(controller.create(req.body), res)
