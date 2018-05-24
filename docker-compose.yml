@@ -1,0 +1,19 @@
+version '2'
+
+services:
+  owl:
+    build: ./
+    ports:
+      - "8888:8888"
+    links:
+      - database
+    volumes:
+      - .:/app
+    depends_on:
+      - database
+    environment:
+      - MONGODB_URI=mongodb://database:27017
+      - APP_DB=owl
+
+  database:
+    image: mongo
