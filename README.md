@@ -2,6 +2,12 @@
 
 The cryptocurrency data service. Counterpart to [birdie](https://github.com/DrCalx/birdie)
 
+## Quickrun
+
+```
+docker-compose up --build
+```
+
 ## Prerequisites
 
 Install the following items:
@@ -9,7 +15,7 @@ Install the following items:
   - [Git](https://git-scm.com/downloads)
   - [MongoDB Community Server](https://www.mongodb.com/)
 
-## Setup
+## Dev Setup
 
 To get set up, run the following commands:
 ```

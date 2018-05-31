@@ -1,10 +1,9 @@
-version '2'
-
+version: '2'
 services:
   owl:
     build: ./
     ports:
-      - "8888:8888"
+      - "8064:8064"
     links:
       - database
     volumes:
@@ -12,8 +11,11 @@ services:
     depends_on:
       - database
     environment:
-      - MONGODB_URI=mongodb://database:27017
-      - APP_DB=owl
+      MONGODB_URI: mongodb://database:27017
+      APP_DB: owl
+      HOST: localhost
+      PORT: 8064
+      NODE_ENV: development
 
   database:
     image: mongo
