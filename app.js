@@ -16,6 +16,7 @@ const app = express()
 app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(express.static('eclipse'))
 
 apiRouter.initialize(app)
 authRouter.initialize(app)
