@@ -4,7 +4,7 @@ const passport = require('passport')
 
 const controller = require('./user.controller')
 
-router.use(passport.authenticate('bearer', { session: false }))
+// router.use(passport.authenticate('bearer', { session: false }))
 
 router.route('/')
   .get((req, res) => {
