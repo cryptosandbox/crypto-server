@@ -17,6 +17,11 @@ router.route('/')
     handleController(controller.deleteAll(), res)
   })
 
+router.route('/all')
+  .get((req, res) => {
+    handleController(controller.readAll(), res)
+  })
+
 router.route('/full')
   .get((req, res) => {
     handleController(controller.read(req.user.id), res)
