@@ -1,13 +1,15 @@
 const express = require('express')
 const router = express.Router()
-const transactionController = ('./transaction.controller')
+const transactionController = require('./transaction.controller')
 
 router.route('/')
   .get((req, res) => {
     handleController(transactionController.readAll(), res)
   })
   .post((req, res) => {
-    handleController(transactionController.create(req.body))
+    console.log('POST transaction')
+    console.log(transactionController)
+    handleController(transactionController.create(req.body), res)
   })
 
 async function handleController(controllerPromise, res) {

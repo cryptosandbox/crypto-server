@@ -7,11 +7,16 @@ const _ = require('lodash')
 mongoose.Promise = require('bluebird')
 
 module.exports = {
-  create: (transaction) => {
-    let wallet = await walletController.readByUser(transaction.owner)
-    let holding = _.find(wallet.holdings, { 'coin': transaciton.coin })
-    holding.amount += transaction.amount
-    console.log(wallet)
+  create: async (transaction) => {
+    let wallet = await walletController.read(transaction.walletId)
+    let holding = _.find(wallet.holdings, (holding) => holding.symbol == transaction.coin)
+    if (holding) {
+      holding.balance += +(transaction.amount)
+    } else {
+      wallet.holdings.push({symbol: transaction.coin, balance: transaction.amount })
+    }
+    await walletController.update(transaction.walletId, wallet)
+    wallet = await walletController.read(transaction.walletId)
     return new Transaction(transaction).save()
   },
 
