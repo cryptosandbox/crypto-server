@@ -31,6 +31,7 @@ module.exports = {
 
     router.route('/signin')
       .post(app.oauth.grant(), (req, res) => {
+        console.log('signed in')
         res.send('signed in')
       })
 

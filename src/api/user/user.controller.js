@@ -40,9 +40,10 @@ module.exports = {
       User.findOne({ username: username })
         .then(user => {
           if (user) { 
+            console.log('comparint passwords:', password, user.password)
             bcrypt.compare(password, user.password, (err, res) => {
-              if(res) { resolve(user) } 
-              else { reject(err) }
+              if(res) { console.log('res', res); resolve(user) } 
+              else { console.log('error in bcrypt:', err); reject(err) }
             })
           } else {
             reject(new Error('user not found'))
