@@ -12,9 +12,14 @@ router.route('/')
     handleController(poloniexController.getCombined('USDT'), res)
   })
 
+router.route('/chart')
+  .get((req, res) => {
+    handleController(poloniexController.getChart(), res)
+  })
+
 async function handleController(controllerPromise, res) {
   try { res.json(await controllerPromise) }
-  catch (reason) { res.status(500).send(reason) }
+  catch (reason) { console.log(reason); res.status(500).send(reason) }
 }
 
 module.exports = router

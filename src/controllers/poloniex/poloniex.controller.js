@@ -1,6 +1,7 @@
 const Poloniex = require('poloniex-api-node')
 let poloniex = new Poloniex()
 const _ = require('lodash')
+const { DateTime } = require('luxon')
 
 async function getCombined(baseCurrency) {
   let tickers = await getTickers(baseCurrency)
@@ -50,4 +51,17 @@ async function getCryptoData(currencyPrefix) {
   return tickers
 }
 
-module.exports = { getCombined, getCurrencies }
+async function getChart() {
+  return new Promise((resolve, reject) => {
+    console.log(DateTime.local().toMillis())
+    poloniex.returnChartData('USDT_BTC', 900, DateTime.local().minus({ hours: 6 }).toMillis() / 1000, DateTime.local().toMillis() / 1000)
+      .then(chartData => {
+        resolve(chartData)
+      })
+      .catch(reason => {
+        console.log(reason)
+        reject(reason)
+      })
+  })
+}
+module.exports = { getCombined, getCurrencies, getChart }
