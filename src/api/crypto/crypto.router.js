@@ -12,9 +12,9 @@ router.route('/')
     handleController(poloniexController.getCombined('USDT'), res)
   })
 
-router.route('/chart')
+router.route('/chart/:symbol')
   .get((req, res) => {
-    handleController(poloniexController.getChart(), res)
+    handleController(poloniexController.getChart(req.params.symbol), res)
   })
 
 async function handleController(controllerPromise, res) {

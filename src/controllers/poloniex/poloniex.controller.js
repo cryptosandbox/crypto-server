@@ -51,10 +51,9 @@ async function getCryptoData(currencyPrefix) {
   return tickers
 }
 
-async function getChart() {
+async function getChart(symbol) {
   return new Promise((resolve, reject) => {
-    console.log(DateTime.local().toMillis())
-    poloniex.returnChartData('USDT_BTC', 900, DateTime.local().minus({ hours: 6 }).toMillis() / 1000, DateTime.local().toMillis() / 1000)
+    poloniex.returnChartData(`USDT_${symbol}`, 900, DateTime.local().minus({ hours: 6 }).toMillis() / 1000, DateTime.local().toMillis() / 1000)
       .then(chartData => {
         resolve(chartData)
       })
