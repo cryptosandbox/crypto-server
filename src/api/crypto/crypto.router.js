@@ -19,7 +19,7 @@ router.route('/chart/:symbol')
 
 async function handleController(controllerPromise, res) {
   try { res.json(await controllerPromise) }
-  catch (reason) { console.log(reason); res.status(500).send(reason) }
+  catch (reason) { console.error(reason); res.status(500).send(reason) }
 }
 
 module.exports = router
