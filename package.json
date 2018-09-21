@@ -1,7 +1,7 @@
 {
-  "name": "owl",
+  "name": "crypto-server",
   "version": "0.1.1",
-  "description": "owl",
+  "description": "Cryptoplayground server",
   "main": "app.js",
   "engines": {
     "node": "8.9.0",
@@ -14,39 +14,43 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DrCalx/owl.git"
+    "url": "git+https://github.com/cryptoplayground/crypto-server.git"
   },
   "keywords": [
-    "owl"
+    "cryptoplayground",
+    "cryptocurrency"
   ],
   "author": "Matthew Duguay",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/DrCalx/owl/issues"
+    "url": "https://github.com/cryptoplayground/crypto-server/issues"
   },
-  "homepage": "https://github.com/DrCalx/owl#readme",
+  "homepage": "https://github.com/cryptoplayground/crypto-server#readme",
   "dependencies": {
-    "bcrypt": "^1.0.3",
+    "bcrypt": "^3.0.1",
     "bluebird": "^3.5.1",
     "body-parser": "^1.18.2",
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.4",
-    "dotenv": "^5.0.0",
+    "dotenv": "^6.0.0",
     "express": "^4.16.2",
+    "https-proxy-agent": "^2.2.1",
     "lodash": "^4.17.5",
     "luxon": "^1.3.3",
-    "mongoose": "^5.0.9",
+    "mongoose": "^5.2.17",
     "node-oauth2-server": "^2.4.0",
-    "npm": "^5.8.0",
+    "npm": "^6.4.1",
     "passport": "^0.4.0",
     "passport-http-bearer": "^1.0.1",
-    "poloniex-api-node": "^1.8.1"
+    "poloniex-api-node": "^1.8.1",
+    "sshpk": "^1.14.2",
+    "superagent": "^4.0.0-beta.5"
   },
   "devDependencies": {
     "chai": "^4.1.2",
-    "chai-http": "^3.0.0",
-    "mocha": "^5.0.1",
+    "chai-http": "^4.2.0",
+    "mocha": "^5.2.0",
     "mockgoose": "^7.3.5",
-    "nodemon": "^1.15.1"
+    "nodemon": "^1.18.4"
   }
 }
