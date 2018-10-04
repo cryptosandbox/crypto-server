@@ -28,5 +28,9 @@ module.exports = {
 
   delete: (id) => {
     return Wallet.findByIdAndRemove(id)
+  },
+
+  deleteAll: () => {
+    return Wallet.deleteMany()
   }
 }

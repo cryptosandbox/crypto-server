@@ -2,10 +2,13 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const dotEnv = require('dotenv')
 const cors = require('cors')
-const passport = require('passport')
-const Strategy = require('passport-http-bearer').Strategy
 
 dotEnv.config()
+
+if(process.env.NODE_ENV == null) {
+  console.error('NODE_ENV not set. try "cp .env.template .env"')
+  process.exit()
+}
 
 const dbController = require('./src/controllers/db/db.controller')
 const apiRouter = require('./src/api/api.router')
@@ -16,13 +19,13 @@ const app = express()
 app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
-app.use(express.static('eclipse'))
+//app.use(express.static('eclipse'))
 
 apiRouter.initialize(app)
 authRouter.initialize(app)
 
 if(process.env.NODE_ENV != 'test') {
-  dbController.connect('owl')
+  dbController.connect('cryptoplayground')
 }
 
 app.listen(process.env.PORT || 8080, () => {

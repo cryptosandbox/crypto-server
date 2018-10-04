@@ -4,14 +4,22 @@ const router = express.Router()
 
 const controller = require('./wallet.controller')
 
-router.use(passport.authenticate('bearer', { session: false }))
+// router.use(passport.authenticate('bearer', { session: false }))
 
 router.route('/')
   .get((req, res) => {
-    handleController(controller.readByUser(req.user.id), res)
+    handleController(controller.readAll(), res)
   })
   .post((req, res) => {
     handleController(controller.create(req.body), res)
+  })
+  .delete((req, res) => {
+    handleController(controller.deleteAll(), res)
+  })
+
+router.route('/byUser')
+  .get((req, res) => {
+    handleController(controller.readByUser(req.user.id), res)
   })
 
 router.route('/:id')
