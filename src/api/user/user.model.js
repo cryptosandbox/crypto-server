@@ -19,10 +19,10 @@ let UserSchema = new Schema({
     type: String,
     required: true,
   },
-  walletId: {
-    type: Schema.Types.ObjectId,
-    ref: 'Wallet'
-  }
+  wallet: [{
+    symbol: String,
+    balance: Number
+  }]
 });
 
 UserSchema.pre('save', function (next) {
