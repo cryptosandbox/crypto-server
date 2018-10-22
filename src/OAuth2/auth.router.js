@@ -6,7 +6,7 @@ const Strategy = require('passport-http-bearer').Strategy
 
 const controller = require('./auth.controller')
 const model = require('./auth.model')
-const userController = require('../api/user/user.controller')
+const userController = require('../api/user/user.controller.mongodb')
 
 passport.use(new Strategy((bearerToken, callback) => {
   controller.findByToken(bearerToken)

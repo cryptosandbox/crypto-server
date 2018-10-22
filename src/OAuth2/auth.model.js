@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var userController = require('../api/user/user.controller')
+var userController = require('../api/user/user.controller.mongodb')
 const Token = require('./token.model')
 const Client = require('./client.model')
 

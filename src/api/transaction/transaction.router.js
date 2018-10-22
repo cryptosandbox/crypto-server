@@ -1,20 +1,21 @@
 const express = require('express')
 const router = express.Router()
-const transactionController = require('./transaction.controller')
+const controller = require('./transaction.controller.mongodb')
 
 router.route('/')
   .get((req, res) => {
-    handleController(transactionController.readAll(), res)
+    handleController(controller.readAll(), res)
   })
   .post((req, res) => {
-    console.log('POST transaction')
-    console.log(transactionController)
-    handleController(transactionController.create(req.body), res)
+    handleController(controller.create(req.body), res)
+  })
+  .delete((req, res) => {
+    handleController(controller.delete(), res)
   })
 
 async function handleController(controllerPromise, res) {
   try { res.json(await controllerPromise) }
-  catch (reason) { res.status(500).send(reason) }
+  catch (reason) { console.error(reason); res.status(500).send(reason) }
 }
 
 module.exports = router

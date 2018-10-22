@@ -2,7 +2,7 @@ process.env.NODE_ENV = 'test'
 
 const app = require('../app')
 const Promise = require('bluebird');
-const mockUser = require('./user.mock')
+const usermock = require('./user.mock')
 const dbController = require('../src/controllers/db/db.controller')
 
 const chai = require('chai')
@@ -12,28 +12,25 @@ const should = chai.should()
 chai.use(chaiHttp)
 
 before(done => {
-  dbController.connect('user').then(done)
+  dbController.connect('test').then(done)
 })
 
 describe('Users', () => {
-  it('Greenlight test', async () => {
-    res = await chai.request(app).get('/api/users/all')
+  it('Greenlight', async () => {
+    chaiapp = chai.request(app)
+    res = await chaiapp.get('/api/users/all')
 
-    console.log(res)
     res.should.have.status(200)
     res.body.should.be.a('array')
     res.body.length.should.equal(0)
 
-
-
-    // let user = mockUser[0];
-    // res = await chai.request(app).post('/api/users').send(user)
-
-    // res.should.have.status(200)
-    // res.body.should.be.a('object')
-    // res.body.should.have.property('_id')
-    // res.body.name.should.equal(user.name)
-    // res.body.email.should.equal(user.email)
+    res = await chai.request(app).post('/api/users').send(usermock)
+    console.log(res.message)
+    res.should.have.status(200)
+    res.body.should.be.a('object')
+    res.body.should.have.property('_id')
+    res.body.name.should.equal(usermock.name)
+    res.body.email.should.equal(usermock.email)
 
     // chai.request(app)
     //   .get('/api/users')

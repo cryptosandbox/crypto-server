@@ -47,9 +47,9 @@ module.exports = {
       })
   },
   
-  update: (id, user) => {
-    hashPassword(user)
-    return User.findByIdAndUpdate(id, user, { new: true }).exec()
+  update: (user) => {
+    //hashPassword(user)
+    return User.findByIdAndUpdate(user.id, user, { new: true }).exec()
   },
 
   delete: (id) => {

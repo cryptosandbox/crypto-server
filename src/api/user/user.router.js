@@ -2,24 +2,24 @@ const express = require('express')
 const router = express.Router()
 const passport = require('passport')
 
-const controller = require('./user.controller')
+const controller = require('./user.controller.mongodb')
 
-// router.use(passport.authenticate('bearer', { session: false }))
+router.use(passport.authenticate('bearer', { session: false }))
 
 router.route('/')
-  .get((req, res) => {
-    handleController(controller.read(req.user.id), res)
-  })
-  .post((req, res) => {
-    handleController(controller.create(req.body), res)
-  })
-  .delete((req, res) => {
-    handleController(controller.deleteAll(), res)
-  })
+.get((req, res) => {
+  handleController(controller.readAll(), res)
+})
+.post((req, res) => {
+  handleController(controller.create(req.body), res)
+})
+.delete((req, res) => {
+  handleController(controller.deleteAll(), res)
+})
 
-router.route('/all')
+router.route('/:id')
   .get((req, res) => {
-    handleController(controller.readAll(), res)
+    handleController(controller.read(req.id), res)
   })
 
 router.route('/full')

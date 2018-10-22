@@ -1,21 +1,22 @@
 const mongoose = require('mongoose')
 const ObjectId = require('mongoose').Types.ObjectId
 const Transaction = require('./transaction.model')
-const userController = require('../user/user.controller')
+const userController = require('../user/user.controller.mongodb')
 const _ = require('lodash')
 
 mongoose.Promise = require('bluebird')
 
 module.exports = {
   create: async (transaction) => {
-    let wallet = await userController.read(transaction.userId)
-    let holding = _.find(wallet, (h) => h.symbol == transaction.coin)
+    let user = await userController.read(transaction.userId)
+    console.log(user)
+    let holding = _.find(user.wallet, (h) => h.coin == transaction.coin)
     if (holding) {
       holding.balance += +(transaction.amount)
     } else {
-      wallet.push({symbol: transaction.coin, balance: transaction.amount })
+      user.wallet.push({coin: transaction.coin, balance: transaction.amount })
     }
-    await userController.update(transaction.userId, wallet)
+    await userController.update(user)
     return new Transaction(transaction).save()
   },
 
@@ -28,5 +29,9 @@ module.exports = {
 
   read: (id) => {
     return Transaction.findById(ObjectId(id))
+  },
+
+  delete: () => {
+    return Transaction.remove()
   }
 }
