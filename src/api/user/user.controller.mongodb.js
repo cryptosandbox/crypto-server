@@ -49,7 +49,7 @@ module.exports = {
   
   update: (user) => {
     //hashPassword(user)
-    return User.findByIdAndUpdate(user.id, user, { new: true }).exec()
+    return User.findOneAndUpdate(user.id, user, { new: true }).exec()
   },
 
   delete: (id) => {

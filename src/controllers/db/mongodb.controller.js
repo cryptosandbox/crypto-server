@@ -11,7 +11,9 @@ function connect(dbName) {
       connectionString = `${process.env.MONGODB_URI}`
     }
 
-    mongoose.connect(connectionString)
+    mongoose.set('useFindAndModify', false)
+    mongoose.set('useCreateIndex', true)
+    mongoose.connect(connectionString, { useNewUrlParser: true })
       .then(() => {
         console.log(`mongoose successfully connected to ${connectionString}`)
         res()
