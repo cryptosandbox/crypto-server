@@ -1,25 +1,27 @@
 const express = require('express')
 const router = express.Router()
 const passport = require('passport')
-const controller = require('./transaction.controller.mongodb')
 
-router.use(passport.authenticate('bearer', { session: false }))
+const userController = require('../user/user.controller.mongodb')
 
-router.route('/')
+//router.use(passport.authenticate('bearer', { session: false }))
+
+router.route('/users')
   .get((req, res) => {
-    handle(controller.readAll(), res)
-  })
-  .post((req, res) => {
-    handle(controller.create(req.user.id, req.body), res)
+    handle(userController.readAll(), res)
   })
   .delete((req, res) => {
-    handle(controller.delete(), res)
+    handle(userController.deleteAll(), res)
   })
 
-router.route('/:uid')
+router.route('/users/:id')
   .get((req, res) => {
-    handle(controller.read(req.uid), res)
+    handle(userController.read(req.id), res)
   })
+  .delete((req, res) => {
+    handle(userController.delete(req.id), res)
+  })
+
 
 async function handle(controllerPromise, res) {
   try { res.json(await controllerPromise) }

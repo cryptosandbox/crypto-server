@@ -1,6 +1,7 @@
 const cryptoRouter = require('./crypto/crypto.router')
 const transactionRouter = require('./transaction/transaction.router')
 const userRouter = require('./user/user.router')
+const apiRouter = require('./admin/admin.router')
 const passport = require('passport')
 
 module.exports.initialize = app => {
@@ -8,4 +9,5 @@ module.exports.initialize = app => {
   app.use('/api/crypto', cryptoRouter)
   app.use('/api/transactions', transactionRouter)
   app.use('/api/users', userRouter)
+  app.use('/api/admin', apiRouter)
 }

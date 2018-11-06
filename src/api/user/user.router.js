@@ -7,40 +7,16 @@ const controller = require('./user.controller.mongodb')
 router.use(passport.authenticate('bearer', { session: false }))
 
 router.route('/')
-.get((req, res) => {
-  handleController(controller.readAll(), res)
-})
-.post((req, res) => {
-  handleController(controller.create(req.body), res)
-})
-.delete((req, res) => {
-  handleController(controller.deleteAll(), res)
-})
-
-router.route('/:id')
   .get((req, res) => {
-    handleController(controller.read(req.id), res)
-  })
-
-router.route('/full')
-  .get((req, res) => {
-    handleController(controller.read(req.user.id), res)
-  })
-
-router.route('/:id')
-  .get((req, res) => {
-    handleController(controller.read(req.params.id), res)
-  })
-  .put((req, res) => {
-    handleController(controller.update(req.params.id, req.body), res)
+    handle(controller.read(req.user.id), res)
   })
   .delete((req, res) => {
-    handleController(controller.delete(req.params.id), res)
+    handle(controller.delete(req.user.id), res)
   })
 
-async function handleController(controllerPromise, res) {
+async function handle(controllerPromise, res) {
   try { res.json(await controllerPromise) }
-  catch (reason) { res.status(500).send(reason) }
+  catch (reason) { console.error(reason); res.status(500).send("Server error") }
 }
 
 module.exports = router

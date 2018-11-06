@@ -37,11 +37,11 @@ module.exports = {
         .then(user => {
           if (user) { 
             bcrypt.compare(password, user.password, (err, res) => {
-              if(res) { console.log('res', res); resolve(user) } 
-              else { console.log('error in bcrypt:', err); reject(err) }
+              if(res) { resolve(user) } 
+              else { console.error('error in bcrypt:', err); reject(new Error('Invalid password')) }
             })
           } else {
-            reject(new Error('user not found'))
+            reject(new Error('User not found'))
           }
         })
       })

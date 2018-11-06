@@ -7,9 +7,9 @@ const _ = require('lodash')
 mongoose.Promise = require('bluebird')
 
 module.exports = {
-  create: async (transaction) => {
-    let user = await userController.read(transaction.userId)
-    console.log(user)
+  create: async (uid, transaction) => {
+    transaction.userId = uid
+    let user = await userController.read(uid)
     let holding = _.find(user.wallet, (h) => h.coin == transaction.coin)
     if (holding) {
       holding.balance += +(transaction.amount)

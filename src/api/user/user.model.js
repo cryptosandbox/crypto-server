@@ -17,7 +17,7 @@ let UserSchema = new Schema({
   },
   password: {
     type: String,
-    required: true,
+    required: true
   },
   wallet: [{
     coin: String,
@@ -27,7 +27,6 @@ let UserSchema = new Schema({
 
 UserSchema.pre('save', function (next) {
   var user = this
-  console.log(`saving ${user.username}`)
   bcrypt.hash(user.password, 10, (err, hash) => {
     if (err) return next(err)
     user.password = hash

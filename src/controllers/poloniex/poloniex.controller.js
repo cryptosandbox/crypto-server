@@ -58,8 +58,8 @@ async function getChart(symbol) {
         resolve(chartData)
       })
       .catch(reason => {
-        console.log(reason)
-        reject(reason)
+        console.error(reason)
+        reject('Could not get chart data')
       })
   })
 }
