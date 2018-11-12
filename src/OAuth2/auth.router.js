@@ -1,6 +1,9 @@
 const express = require('express')
 const router = express.Router()
+
 const oAuth2Server = require('node-oauth2-server')
+const OAuth2Error = require('node-oauth2-server/lib/error')
+
 const passport = require('passport')
 const Strategy = require('passport-http-bearer').Strategy
 
@@ -27,8 +30,6 @@ module.exports = {
       debug: true
     })
 
-    app.use(app.oauth.errorHandler())
-
     router.route('/signin')
       .post(app.oauth.grant(), (req, res) => {
         res.send('signed in')
@@ -36,15 +37,28 @@ module.exports = {
 
     router.route('/signup')
       .post((req, res) => {
+        console.log("req.body:", req.body)
         handleController(userController.create(req.body), res)
       })
-    
+
     router.route('/access')
-      .post(passport.authenticate('bearer', { session: false }), (req, res) => { 
-        res.send('you have gained access') 
+      .post(passport.authenticate('bearer', { session: false }), (req, res) => {
+        res.send('you have gained access')
       })
 
     app.use('/auth', router)
+
+    app.use((err, req, res, next) => {
+      if (err instanceof OAuth2Error) {
+        if (err.code == 503) {
+          res.status(401)
+          next(err)
+        }
+      }
+      next(err)
+    })
+
+    //app.use(app.oauth.errorHandler())
 
     return router
   }
@@ -52,5 +66,12 @@ module.exports = {
 
 async function handleController(controllerPromise, res) {
   try { res.json(await controllerPromise) }
-  catch (reason) { res.status(500).send(reason) }
+  catch (reason) {
+    console.log("Code:", reason.code)
+    if (reason.code == 11000) {
+      res.status(409).send("User already exists")
+    } else {
+      res.status(500).send("Server error")
+    }
+  }
 }

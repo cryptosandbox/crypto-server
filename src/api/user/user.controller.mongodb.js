@@ -57,6 +57,7 @@ module.exports = {
   },
   
   deleteAll: () => {
+    console.log("deleteMany")
     return User.deleteMany()
   }
 }
