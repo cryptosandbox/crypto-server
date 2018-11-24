@@ -8,6 +8,8 @@ mongoose.Promise = require('bluebird')
 
 module.exports = {
   create: async (uid, transaction) => {
+    console.log("received transaction")
+    console.log(transaction)
     transaction.userId = uid
     let user = await userController.read(uid)
     let holding = _.find(user.wallet, (h) => h.coin == transaction.coin)
