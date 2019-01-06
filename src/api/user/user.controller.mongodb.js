@@ -11,6 +11,7 @@ module.exports = {
   create: (user) => {
     return new Promise((res, rej) => {
       delete user._id
+      user.wallet = [{coin: 'USD', balance: 150000}]
       new User(user).save()
         .then(userResult => {
           let userObj = userResult.toObject();
