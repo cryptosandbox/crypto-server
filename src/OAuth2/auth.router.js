@@ -37,7 +37,6 @@ module.exports = {
 
     router.route('/signup')
       .post((req, res) => {
-        console.log("req.body:", req.body)
         handleController(userController.create(req.body), res)
       })
 
