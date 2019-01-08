@@ -25,7 +25,7 @@ apiRouter.initialize(app)
 authRouter.initialize(app)
 
 if(process.env.NODE_ENV != 'test') {
-  dbController.connect('cryptoplayground')
+  dbController.connect('crypto')
 }
 
 app.listen(process.env.PORT || 8080, () => {
