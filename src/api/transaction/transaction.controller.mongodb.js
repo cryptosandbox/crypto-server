@@ -18,7 +18,7 @@ module.exports = {
     } else {
       user.wallet.push({coin: transaction.coin, balance: transaction.amount })
     }
-    await userController.update(user)
+    await userController.updateWallet(user)
     return new Transaction(transaction).save()
   },
 

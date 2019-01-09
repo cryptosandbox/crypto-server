@@ -47,10 +47,9 @@ module.exports = {
         })
       })
   },
-  
-  update: (user) => {
-    //hashPassword(user)
-    return User.findOneAndUpdate(user.id, user, { new: true }).exec()
+
+  updateWallet: (user) => {
+    return User.findByIdAndUpdate(user._id, { wallet: user.wallet }).exec()
   },
 
   delete: (id) => {
@@ -58,7 +57,6 @@ module.exports = {
   },
   
   deleteAll: () => {
-    console.log("deleteMany")
     return User.deleteMany()
   }
 }
