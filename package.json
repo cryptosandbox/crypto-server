@@ -1,7 +1,7 @@
 {
   "name": "crypto-server",
   "version": "0.1.1",
-  "description": "Cryptoplayground server",
+  "description": "Cryptosandbox server",
   "main": "app.js",
   "engines": {
     "node": "10.12.0",
@@ -14,18 +14,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cryptoplayground/crypto-server.git"
+    "url": "git+https://github.com/cryptosandbox/crypto-server.git"
   },
   "keywords": [
-    "cryptoplayground",
+    "crypto",
+    "cryptosandbox",
     "cryptocurrency"
   ],
   "author": "Matthew Duguay",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/cryptoplayground/crypto-server/issues"
+    "url": "https://github.com/cryptosandbox/crypto-server/issues"
   },
-  "homepage": "https://github.com/cryptoplayground/crypto-server#readme",
+  "homepage": "https://github.com/cryptosandbox/crypto-server#readme",
   "dependencies": {
     "bcrypt": "^3.0.3",
     "bluebird": "^3.5.3",

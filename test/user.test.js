@@ -109,7 +109,7 @@ async function signin() {
       username: 'mock',
       password: '123abc',
       grant_type: 'password',
-      client_id: 'crypto-playground',
+      client_id: 'cryptosandbox',
       client_secret: 'null'
     })
 
