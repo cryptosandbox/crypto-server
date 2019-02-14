@@ -1,6 +1,6 @@
-# Owl
+# Cryptosandbox crypto-server
 
-The cryptocurrency data service. Counterpart to [birdie](https://github.com/DrCalx/birdie)
+The cryptocurrency data service.
 
 ## Quickrun
 
@@ -19,8 +19,8 @@ Install the following items:
 
 To get set up, run the following commands:
 ```
-git clone git@github.com:DrCalx/owl.git
-cd owl/
+git clone git@github.com:cryptosandbox/crypto-server.git
+cd crypto-server/
 npm install
 cp .env.template .env
 npm start
@@ -36,7 +36,7 @@ Install the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)
 
 Link to the heroku repository:
 ```
-heroku git:remote -a owl-server
+heroku git:remote -a cryptosandbox-server
 ```
 
 Then, to push to prod:
